@@ -44,7 +44,7 @@ pipeline {
     }
     post {
         success {
-            echo " Application name ${params.appVersion} version ${params.selectedVersion} has been deployed !!!"
+            echo " Application name ${params.AppVersion} version ${params.selectedVersion} has been deployed !!!"
         }
     }
 }
