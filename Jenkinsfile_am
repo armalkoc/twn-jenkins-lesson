@@ -1,3 +1,4 @@
+def gv
 pipeline {
     agent any
     tools {
@@ -9,8 +10,6 @@ pipeline {
         choice(name: 'selectedVersion', choices: ['1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.5.0'], description: 'these are available versions')
         booleanParam(name: 'executeTest', defaultValue: '', description: 'Test should be executed or not ?')
     }
-
-    def gv
 
     stages {
         stage("initialzie") {
