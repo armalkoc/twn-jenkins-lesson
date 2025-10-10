@@ -5,13 +5,18 @@ pipeline {
     }
 
     parameters {
-        string(name: 'App Version', defaultValue: '', description: 'Specify application version')
+        string(name: 'AppVersion', defaultValue: '', description: 'Specify application version')
     }
 
     stages {
         stage("build") {
+            when {
+                expression {
+                    params.AppVersion == '3'
+                }
+            }
             steps {
-                echo "Builidng Application ..."
+                echo "Builidng Application number ${params.AppVersion} ..."
 
             }
         }
