@@ -10,27 +10,29 @@ pipeline {
         booleanParam(name: 'executeTest', defaultValue: '', description: 'Test should be executed or not ?')
     }
 
+    def gv
+
     stages {
-        stage("build") {
-            when {
-                expression {
-                    params.AppVersion == 'arminApplication'
+        stage("initialzie") {
+            steps {
+                script {
+                    gv = load "script.groovy"
                 }
             }
+        }
+        stage("build") {
             steps {
-                echo "Builidng Application number ${params.AppVersion} ..."
-
+                script {
+                    gv.buildApp
+                }
             }
         }
 
         stage("Test") {
-            when {
-                expression {
-                    params.selectedVersion == '1.3.0'
-                }
-            }
             steps {
-                echo "Testing application  ${params.selectedVersion} ..."
+                script {
+                    gv.testAppP()
+                }
 
             }
 
@@ -38,7 +40,9 @@ pipeline {
 
         stage("deploy") {
             steps {
-                echo "Deploying Application ..."
+                script {
+                    gv.deployApp
+                }
             }
         }
     }
