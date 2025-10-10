@@ -6,15 +6,11 @@ pipeline {
 
     parameters {
         string(name: 'AppVersion', defaultValue: '', description: 'Specify application version')
+        choice(name: 'SelectedVersion', choices: ['1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.5.0'], description: 'these are available versions')
     }
 
     stages {
         stage("build") {
-            when {
-                expression {
-                    params.AppVersion == '3'
-                }
-            }
             steps {
                 echo "Builidng Application number ${params.AppVersion} ..."
 
@@ -31,7 +27,7 @@ pipeline {
 
         stage("deploy") {
             steps {
-                echo "Deployinh Application ..."
+                echo "Deploying Application ..."
             }
         }
     }
