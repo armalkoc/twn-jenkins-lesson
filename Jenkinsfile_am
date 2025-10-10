@@ -12,6 +12,11 @@ pipeline {
 
     stages {
         stage("build") {
+            when {
+                expression {
+                    params.AppVersion == 'arminApplication'
+                }
+            }
             steps {
                 echo "Builidng Application number ${params.AppVersion} ..."
 
@@ -19,6 +24,11 @@ pipeline {
         }
 
         stage("Test") {
+            when {
+                expression {
+                    params.selectedVersion == '1.3.0'
+                }
+            }
             steps {
                 echo "Testing application ..."
 
