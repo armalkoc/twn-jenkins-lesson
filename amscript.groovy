@@ -3,7 +3,7 @@ def buildJar() {
     sh 'mvn package'
 }
 
-def buildImage() {
+def buildImage(String appVersion) {
     echo "in this step Docker Image is being built"
     withCredentials([usernamePassword(credentialsId: 'docker-full-pip', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh 'docker build -t 192.168.0.112:3031/full-pipeline-lesson:am-${version} .'
