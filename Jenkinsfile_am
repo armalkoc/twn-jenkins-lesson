@@ -1,0 +1,34 @@
+pipeline {
+    
+    agent any
+
+    stages {
+        stage("build jar artifact") {
+            steps {
+                script {
+                    echo "In this step jar file is being built ..."
+                    sh 'mvn package'
+                }
+            }
+        }
+        stage("build docker image") {
+            steps {
+                script {
+                    echo "in this step Docker Image is being built"
+                    withCredentials([usernamePassword(credentialsID: 'docker-full-pip', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'docker build -t 192.168.0.112:3031/full-pipeline-lesson:am-1.0 .'
+                        sh 'echo $PASS | docker login -u ${USER} --password-stdin 192.168.0.112:3031'
+                        sh 'docker push 192.168.0.112:3031/full-pipeline-lesson:am-1.0'
+                    }
+                }
+            }
+            stage("deploy Docker Image") {
+                steps {
+                    script {
+                        echo "Deploying Docker Image application ..."
+                    }
+                }
+            }
+        }
+    }
+}
