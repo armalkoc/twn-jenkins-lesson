@@ -25,13 +25,13 @@ pipeline {
                     }
                 }
             }
-            stage("deploy Docker Image") {
-                steps {
-                    script {
-                        echo "Deploying Docker Image application ..."
+        }
+        stage("deploy Docker Image") {
+            steps {
+                script {
+                    echo "Deploying Docker Image application ..."
                     }
                 }
             }
         }
     }
-}
