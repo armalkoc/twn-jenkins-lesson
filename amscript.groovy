@@ -12,8 +12,8 @@ def buildImage(String appVersion) {
     }
 }
 
-def deployApp() {
-    echo "Deploying Docker Image application ..."
+def deployApp(String version) {
+    echo "Deploying Docker Image application version ${version}..."
 }
 
 return this

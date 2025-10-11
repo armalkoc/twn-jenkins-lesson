@@ -38,7 +38,7 @@ pipeline {
         stage("deploy Docker Image") {
             steps {
                 script {
-                    grv.deployApp()
+                    grv.deployApp(params.availableVersions)
                     }
                 }
         }
