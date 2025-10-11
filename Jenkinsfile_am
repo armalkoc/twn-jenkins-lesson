@@ -29,7 +29,6 @@ pipeline {
                     }
                 }
             }
-        }
         stage("deploy Docker Image") {
             steps {
                 script {
@@ -37,4 +36,5 @@ pipeline {
                     }
                 }
         }
+    }
 }
