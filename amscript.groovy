@@ -6,7 +6,7 @@ def buildJar() {
 def buildImage(String appVersion) {
     echo "in this step Docker Image is being built"
     withCredentials([usernamePassword(credentialsId: 'docker-full-pip', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t 192.168.0.112:3031/full-pipeline-lesson:am-${version} .'
+        sh 'docker build -t 192.168.0.112:3031/full-pipeline-lesson:am-${appVersion} .'
         sh 'echo $PASS | docker login -u ${USER} --password-stdin 192.168.0.112:3031'
         sh 'docker push 192.168.0.112:3031/full-pipeline-lesson:am-1.0'
     }
