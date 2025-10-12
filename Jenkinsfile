@@ -1,41 +1,46 @@
-def gv
-
-pipeline {   
+def grv 
+pipeline {
+    
     agent any
     tools {
-        maven 'Maven'
+        maven 'maven-3.9'
     }
+
+    parameters {
+        string(name:'appVersion', defaultValue:'', description:'define app version')
+        choice(name:'availableVersions', choices: ['1.1', '1.2', '1.3', '1.4', '1.5'], description: 'these are available app versions')
+        booleanParam(name:'executeTest', defaultValue: '', description: 'define if test is needed or not')
+    }
+
     stages {
-        stage("init") {
+        stage("initialize grrovy script") {
             steps {
                 script {
-                    gv = load "script.groovy"
-                }
-            }
-        }
-        stage("build jar") {
-            steps {
-                script {
-                    gv.buildJar()
-
+                    grv = load "amscript.groovy"
                 }
             }
         }
 
-        stage("build image") {
+        stage("build jar artifact") {
             steps {
                 script {
-                    gv.buildImage()
+                    grv.buildJar()
                 }
             }
         }
-
-        stage("deploy") {
+        stage("build docker image") {
             steps {
                 script {
-                    gv.deployApp()
+                    grv.buildImage(params.availableVersions)
+                    }
                 }
             }
-        }               
+        stage("deploy Docker Image") {
+            steps {
+                script {
+                    grv.deployApp(params.availableVersions)
+                    }
+                }
+        }
     }
-} 
+}
