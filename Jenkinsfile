@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     echo "Testing Application"
-                    echo "Executing the Pipeline for btanch ${BRANCH_NAME}"
+                    echo "Executing the Pipeline for branch ${BRANCH_NAME}"
                 }
             }
         }
