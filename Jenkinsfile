@@ -1,48 +1,41 @@
-def gv
 pipeline {
+    
     agent any
-    tools {
-        maven "maven-3.9"
-    }
-
-    parameters {
-        string(name: 'AppVersion', defaultValue: '', description: 'Specify application version')
-        choice(name: 'selectedVersion', choices: ['1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.5.0'], description: 'these are available versions')
-        booleanParam(name: 'executeTest', defaultValue: '', description: 'Test should be executed or not ?')
-    }
-
+    
     stages {
-        stage("initialzie") {
+        stage("app test") {
             steps {
                 script {
-                    gv = load "script.groovy"
+                    echo "Testing Application"
+                    echo "Executing the Pipeline for btanch ${BRANCH_NAME}"
                 }
             }
         }
-        stage("build") {
-            steps {
-                script {
-                    gv.buildApp()
+        stage("app build") {
+            when {
+                expression {
+                    BRANCH_NAME = 'master'
                 }
             }
-        }
-
-        stage("Test") {
             steps {
                 script {
-                    gv.testApp()
+                    echo "Building the application just for branch ${BRANCH_NAME}"
                 }
-
             }
-
-        }
-
-        stage("deploy") {
+            }
+        stage("app deploy") {
+            when {
+                expression {
+                    BRANCH_NAME = 'master'
+                }
+            }
             steps {
                 script {
-                    gv.deployApp()
+                    echo "deploying the application for the branch ${BRANCH_NAME}"
                 }
             }
+ 
         }
     }
+    
 }
