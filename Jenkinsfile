@@ -1,33 +1,40 @@
 def gv
-
-pipeline {   
+pipeline {
     agent any
     tools {
-        maven 'Maven'
+        maven "maven-3.9"
     }
+
+    parameters {
+        string(name: 'AppVersion', defaultValue: '', description: 'Specify application version')
+        choice(name: 'selectedVersion', choices: ['1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.5.0'], description: 'these are available versions')
+        booleanParam(name: 'executeTest', defaultValue: '', description: 'Test should be executed or not ?')
+    }
+
     stages {
-        stage("init") {
+        stage("initialzie") {
             steps {
                 script {
                     gv = load "script.groovy"
                 }
             }
         }
-        stage("build jar") {
+        stage("build") {
             steps {
                 script {
-                    gv.buildJar()
-
+                    gv.buildApp()
                 }
             }
         }
 
-        stage("build image") {
+        stage("Test") {
             steps {
                 script {
-                    gv.buildImage()
+                    gv.testApp()
                 }
+
             }
+
         }
 
         stage("deploy") {
@@ -36,6 +43,6 @@ pipeline {
                     gv.deployApp()
                 }
             }
-        }               
+        }
     }
-} 
+}
