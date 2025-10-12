@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     echo "Testing Application"
-                    echo "Executing the Pipeline for branch ${BRANCH_NAME}"
+                    echo "Executing the Pipeline"
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Building the application just for branch ${BRANCH_NAME}"
+                    echo "Building the application"
                 }
             }
             }
@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "deploying the application for the branch ${BRANCH_NAME}"
+                    echo "deploying the application"
                 }
             }
  
