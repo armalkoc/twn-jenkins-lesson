@@ -14,7 +14,7 @@ pipeline {
         stage("app build") {
             when {
                 expression {
-                    env.BRANCH_NAME == "master"
+                    BRANCH_NAME == "master"
                 }
             }
             steps {
@@ -26,7 +26,7 @@ pipeline {
         stage("app deploy") {
             when {
                 expression {
-                    env.BRANCH_NAME == "master"
+                    BRANCH_NAME == "master"
                 }
             }
             steps {
