@@ -1,37 +1,41 @@
+@Library('am-jenkins-shared-library')
+def gv
 pipeline {
     
     agent any
+
+    tools {
+        maven 'maven-3.9'
+    }
     
     stages {
-        stage("app test") {
+        stage("initialize") {
             steps {
                 script {
-                    echo "Testing Application"
-                    echo "Executing the Pipeline for branch ${BRANCH_NAME}"
+                    gv = load "script.groovy"
                 }
             }
         }
-        stage("app build") {
-            when {
-                expression {
-                    BRANCH_NAME == "master"
-                }
-            }
+        stage("build jar") {
             steps {
                 script {
-                    echo "Building the application"
+                    buildJar()
                 }
             }
             }
+        stage("build and push image") {
+            steps {
+                script {
+                    buildImage 'amalkoc/twn-demo-app:jma-3.0'
+                    dockerLogin()
+                    dockerPush 'amalkoc/twn-demo-app:jma-3.0'
+                }
+            }
+        }
         stage("app deploy") {
-            when {
-                expression {
-                    BRANCH_NAME == "master"
-                }
-            }
             steps {
                 script {
-                    echo "deploying the application"
+                    gv.deployApp()
                 }
             }
  
