@@ -27,9 +27,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    buildImage 'amalkoc/twn-demo-app:jma-sl-2.0'
-                    dockerLogin()
-                    dockerPush 'amalkoc/twn-demo-app:jma-sl-2.0'
+                    buildImage()
                 }
             }
         }
