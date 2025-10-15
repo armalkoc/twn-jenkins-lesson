@@ -27,7 +27,7 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    buildImage()
+                    buildImage 'amalkoc/twn-demo-app:jma-sl-7.0'
                 }
             }
         }
