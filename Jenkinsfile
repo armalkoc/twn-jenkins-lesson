@@ -43,7 +43,7 @@ pipeline {
         stage("Commit pom.xml Version Update") {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-private-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    withCredentials([usernamePassword(credentialsId: 'github-am', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh 'git config --global user.email "armin.bootcamp@gmail.com"'
                         sh 'git config --global user.name "amalkoc"'
 
