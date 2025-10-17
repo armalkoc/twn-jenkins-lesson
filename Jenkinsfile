@@ -30,7 +30,7 @@ pipeline {
         }
         stage("Build Image") {
             steps {
-                scrtip {
+                script {
                     echo "Building the Docker Image ..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-private-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                         sh "docker build -t amalkoc/twn-demo-app:${IMAGE_NAME} ."
