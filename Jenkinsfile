@@ -40,5 +40,24 @@ pipeline {
                 }
             }
         }
+        stage("Commit pom.xml Version Update") {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-private-repo', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                        sh 'git config --global user.email "armin.bootcamp@gmail.com"'
+                        sh 'git config --global user.name "amalkoc"'
+
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
+
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/armalkoc/twn-jenkins-lesson.git"
+                        sh 'git add .'
+                        sh 'git commit -m "ci: version bump"'
+                        sh 'git push origin HEAD:jenkins-jobs'
+                    }
+                }
+            }
+        }
     }
 }
