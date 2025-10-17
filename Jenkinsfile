@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage("build jar artifact") {
+        stage("build Jar artifact") {
             steps {
                 script {
                     grv.buildJar()
