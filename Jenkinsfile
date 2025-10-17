@@ -13,7 +13,7 @@ pipeline {
     }
 
     stages {
-        stage("initialize grrovy script") {
+        stage("initialize groovy script") {
             steps {
                 script {
                     grv = load "amscript.groovy"
