@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage("build docker image") {
+        stage("build Docker image") {
             steps {
                 script {
                     grv.buildImage(params.availableVersions)
